@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 public class RawTweet {
 	
 	private final String _data;
@@ -25,7 +27,7 @@ public class RawTweet {
 	}
 	
 	public Date getFNT() {
-		String[] parts = _filename.split("" + File.separatorChar);
+		String[] parts = _filename.split(StringEscapeUtils.escapeJava(File.separator));
 		String hour = parts[parts.length - 1];
 		String date = parts[parts.length - 2];
 		try {
