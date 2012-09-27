@@ -11,7 +11,9 @@ public class Q07 {
 		
 		while(it.hasNext()) {
 			Tweet tweet = it.next();
-			System.out.println(tweet.getCity());
+			if (tweet.getCity().equals("Berlin") && tweet.getPhoto() != null) {
+				System.out.println(tweet.getPhoto());
+			}
 		}
 	}
 

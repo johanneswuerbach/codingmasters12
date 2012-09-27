@@ -25,6 +25,7 @@ public class RawIterator implements Iterator<RawTweet> {
 			File directory = new File(name);
 			files.addAll(listSourceFiles(directory));
 		}
+		
 		_files = files.iterator();
 	}
 	

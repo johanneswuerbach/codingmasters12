@@ -1,5 +1,6 @@
 package challenge1;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Tweet {
@@ -49,6 +50,26 @@ public class Tweet {
 			return null;
 		}
 		return (String) object.get("name");
+	}
+	
+	public String getPhoto() {
+		JSONObject object = (JSONObject) _object.get( "entities" );
+		if (object == null) {
+			return null;
+		}
+		
+		JSONArray items = (JSONArray) object.get("media");
+		
+		for(int i = 0; i < items.size(); i++) {
+			JSONObject item = (JSONObject) items.get(i);
+			if (item.get("type").equals("photo")) {
+				return (String) item.get("media_url");
+			}
+		}
+		
+		return null;
+		
+		
 	}
 
 }
