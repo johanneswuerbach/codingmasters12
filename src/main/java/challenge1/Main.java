@@ -1,5 +1,7 @@
 package challenge1;
 
+import challenge1.questions.Q01;
+
 public class Main {
 
 	/**
@@ -8,7 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		new Solution().question6();
-
+		Q01.answer();
 	}
 
 }

@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.zip.GZIPInputStream;
 
-public class StringIterator implements Iterator<String> {
+public class RawIterator implements Iterator<RawTweet> {
 
 	private Iterator<File> _files;
 	private BufferedReader _bufferedReader;
-	private String _nextLine;
+	private RawTweet _currentLine;
+	private String _currentFile;
 
-	public StringIterator(String directoryName) {
+	public RawIterator(String directoryName) {
 		File directory = new File(directoryName);
 		_files = listSourceFiles(directory).iterator();
 	}
@@ -44,6 +45,8 @@ public class StringIterator implements Iterator<String> {
 		
 		try {
 			File file = _files.next();
+			_currentFile = file.getAbsolutePath();
+			
 			FileInputStream is = new FileInputStream(file);
 			GZIPInputStream gzis = new GZIPInputStream(is);
 			InputStreamReader reader = new InputStreamReader(gzis);
@@ -80,19 +83,23 @@ public class StringIterator implements Iterator<String> {
 			return nextLine();
 		}
 	}
-
-	public boolean hasNext() {
-		_nextLine = nextLine();
-		return _nextLine != null;
+	
+	public RawTweet nextRaw() {
+		return new RawTweet(nextLine(), _currentFile);
 	}
 
-	public String next() {
-		if (_nextLine != null) {
-			String line = _nextLine;
-			_nextLine = null;
+	public boolean hasNext() {
+		_currentLine = nextRaw();
+		return _currentLine != null;
+	}
+
+	public RawTweet next() {
+		if (_currentLine != null) {
+			RawTweet line = _currentLine;
+			_currentLine = null;
 			return line;
 		} else {
-			return nextLine();
+			return nextRaw();
 		}
 	}
 
