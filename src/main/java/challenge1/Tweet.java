@@ -59,7 +59,9 @@ public class Tweet {
 		}
 		
 		JSONArray items = (JSONArray) object.get("media");
-		
+		if (items == null) {
+			return null;
+		}
 		for(int i = 0; i < items.size(); i++) {
 			JSONObject item = (JSONObject) items.get(i);
 			if (item.get("type").equals("photo")) {
