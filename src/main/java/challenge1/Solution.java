@@ -7,7 +7,7 @@ public class Solution
 		Parser parser = new Parser( "C:\\twitter" );
 		TweetIterator it = parser.tweetIterator();
 		int all = 0;
-		int insta = 0;
+		int instagram = 0;
 		int i = 0;
 		
 		while( it.hasNext() )
@@ -17,15 +17,15 @@ public class Solution
 			
 			if( t.getSourceText().equals( "Instagram" ) )
 			{
-				insta++;
+				instagram++;
 			}
 			
 			if( ++i % 100000 == 0 )
 			{
-				System.out.println("All: " + all + ", Instagram: " + insta );
+				System.out.println("All: " + all + ", Instagram: " + instagram );
 			}
 		}
 		
-		System.out.println("All: " + all + ", Instagram: " + insta );
+		System.out.println( ( instagram / (float) all ) * 100 + "%" );
 	}
 }
