@@ -11,18 +11,18 @@ public class Q14 {
 
 	public static void answer() {
 
-		String[] week = { "/Users/johannes/Documents/SAP/twitter/2012-08-13",
-				"/Users/johannes/Documents/SAP/twitter/2012-08-14",
-				"/Users/johannes/Documents/SAP/twitter/2012-08-15",
-				"/Users/johannes/Documents/SAP/twitter/2012-08-16",
-				"/Users/johannes/Documents/SAP/twitter/2012-08-17",
-				"/Users/johannes/Documents/SAP/twitter/2012-08-18",
-				"/Users/johannes/Documents/SAP/twitter/2012-08-19" };
+		String[] week = { "C:\\twitter\\2012-08-13",
+				"C:\\twitter\\2012-08-14",
+				"C:\\twitter\\2012-08-15",
+				"C:\\twitter\\2012-08-16",
+				"C:\\twitter\\2012-08-17",
+				"C:\\twitter\\2012-08-18",
+				"C:\\twitter\\2012-08-19" };
 
-		String[] sweek = { "/Users/johannes/Documents/SAP/twitter/2012-08-13" };
+		String[] sweek = { "C:\\twitter\\2012-08-13" };
 
-		Parser parser = new Parser(sweek);
-		TweetIterator it = parser.tweetIterator();
+		Parser parser = new Parser(week);
+		TweetIterator it = parser.tweetIterator("(.*)Germany(.*)");
 
 		HashMap<String, Integer> table = new HashMap<String, Integer>();
 
@@ -35,7 +35,7 @@ public class Q14 {
 				if (city != null) {
 					Integer count = table.get(city);
 					if (count == null) {
-						count = 0;
+						count = 1;
 					} else {
 						count++;
 					}

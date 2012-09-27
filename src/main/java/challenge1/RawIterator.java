@@ -14,11 +14,10 @@ public class RawIterator implements Iterator<RawTweet> {
 
 	private final Iterator<File> _files;
 	private String _filter;
-	
+
 	private BufferedReader _bufferedReader;
 	private RawTweet _currentLine;
 	private String _currentFile;
-	
 
 	public RawIterator(String[] directoryNames) {
 		ArrayList<File> files = new ArrayList<File>();
@@ -28,7 +27,7 @@ public class RawIterator implements Iterator<RawTweet> {
 		}
 		_files = files.iterator();
 	}
-	
+
 	public RawIterator(String[] directoryNames, String filter) {
 		this(directoryNames);
 		_filter = filter;
@@ -48,17 +47,16 @@ public class RawIterator implements Iterator<RawTweet> {
 		}
 		return files;
 	}
-	
-	
+
 	private BufferedReader nextFile() {
 		if (!_files.hasNext()) {
 			return null;
 		}
-		
+
 		try {
 			File file = _files.next();
 			_currentFile = file.getAbsolutePath();
-			
+
 			FileInputStream is = new FileInputStream(file);
 			GZIPInputStream gzis = new GZIPInputStream(is);
 			InputStreamReader reader = new InputStreamReader(gzis, "UTF-8");
@@ -78,36 +76,40 @@ public class RawIterator implements Iterator<RawTweet> {
 
 		try {
 			String line;
-			if (_bufferedReader == null || (line = _bufferedReader.readLine()) == null) {
+			if (_bufferedReader == null
+					|| (line = _bufferedReader.readLine()) == null) {
+				if (_bufferedReader != null) {
+					_bufferedReader.close();
+				}
 				_bufferedReader = nextFile();
 				if (_bufferedReader == null) {
 					return null;
 				}
 				return _bufferedReader.readLine();
-			}
-			else {
+			} else {
 				return line;
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			// Try next line
 			return nextLine();
 		}
 	}
-	
+
 	public RawTweet nextRaw() {
-		String line = nextLine();
+		String line;
+		if (_filter != null) {
+			while ((line = nextLine()) != null && !line.matches(_filter))
+				;
+		} else {
+			line = nextLine();
+		}
+
 		if (line == null) {
 			return null;
 		}
-		
-		if (_filter != null && !line.matches(_filter)) {
-			return nextRaw();
-		}
-		else {
-			return new RawTweet(nextLine(), _currentFile);
-		}
+		return new RawTweet(line, _currentFile);
 	}
 
 	public boolean hasNext() {
