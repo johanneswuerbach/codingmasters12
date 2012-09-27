@@ -16,10 +16,16 @@ public class RawIterator implements Iterator<RawTweet> {
 	private BufferedReader _bufferedReader;
 	private RawTweet _currentLine;
 	private String _currentFile;
+	private String _filter;
 
 	public RawIterator(String directoryName) {
 		File directory = new File(directoryName);
 		_files = listSourceFiles(directory).iterator();
+	}
+	
+	public RawIterator(String directoryName, String filter) {
+		this(directoryName);
+		_filter = filter;
 	}
 
 	public ArrayList<File> listSourceFiles(final File directory) {
@@ -85,7 +91,17 @@ public class RawIterator implements Iterator<RawTweet> {
 	}
 	
 	public RawTweet nextRaw() {
-		return new RawTweet(nextLine(), _currentFile);
+		String line = nextLine();
+		if (line == null) {
+			return null;
+		}
+		
+		if (_filter != null && !line.matches(_filter)) {
+			return nextRaw();
+		}
+		else {
+			return new RawTweet(nextLine(), _currentFile);
+		}
 	}
 
 	public boolean hasNext() {
