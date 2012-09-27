@@ -12,20 +12,20 @@ import java.util.zip.GZIPInputStream;
 
 public class RawIterator implements Iterator<RawTweet> {
 
-	private Iterator<File> _files;
+	private final Iterator<File> _files;
+	private String _filter;
+	
 	private BufferedReader _bufferedReader;
 	private RawTweet _currentLine;
 	private String _currentFile;
-	private String _filter;
+	
 
 	public RawIterator(String[] directoryNames) {
-		
 		ArrayList<File> files = new ArrayList<File>();
 		for (String name : directoryNames) {
 			File directory = new File(name);
 			files.addAll(listSourceFiles(directory));
 		}
-		
 		_files = files.iterator();
 	}
 	
@@ -61,7 +61,7 @@ public class RawIterator implements Iterator<RawTweet> {
 			
 			FileInputStream is = new FileInputStream(file);
 			GZIPInputStream gzis = new GZIPInputStream(is);
-			InputStreamReader reader = new InputStreamReader(gzis);
+			InputStreamReader reader = new InputStreamReader(gzis, "UTF-8");
 			return new BufferedReader(reader);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
