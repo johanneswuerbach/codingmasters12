@@ -17,5 +17,9 @@ public class Q01 {
 		}
 		
 	}
+	
+	public static void main(String[] args) {
+		Q01.answer();
+	}
 
 }

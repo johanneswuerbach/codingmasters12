@@ -11,12 +11,9 @@ public class Q14 {
 
 	public static void answer() {
 
-		String[] week = { "C:\\twitter\\2012-08-13",
-				"C:\\twitter\\2012-08-14",
-				"C:\\twitter\\2012-08-15",
-				"C:\\twitter\\2012-08-16",
-				"C:\\twitter\\2012-08-17",
-				"C:\\twitter\\2012-08-18",
+		String[] week = { "C:\\twitter\\2012-08-13", "C:\\twitter\\2012-08-14",
+				"C:\\twitter\\2012-08-15", "C:\\twitter\\2012-08-16",
+				"C:\\twitter\\2012-08-17", "C:\\twitter\\2012-08-18",
 				"C:\\twitter\\2012-08-19" };
 
 		String[] sweek = { "C:\\twitter\\2012-08-13" };
@@ -49,9 +46,6 @@ public class Q14 {
 		}
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		Q14.answer();
 	}

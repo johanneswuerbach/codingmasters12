@@ -20,5 +20,9 @@ public class Q07 {
 			}
 		}
 	}
+	
+	public static void main(String[] args) {
+		Q07.answer();
+	}
 
 }
