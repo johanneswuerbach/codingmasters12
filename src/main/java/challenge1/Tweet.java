@@ -33,6 +33,18 @@ public class Tweet {
 		return getSource().replaceAll( "<a.*>(.*)</a>", "$1" );
 	}
 	
+	public String getCity() {
+		JSONObject object = (JSONObject) _object.get( "place" );
+		
+		if (object == null) {
+			return null;
+		}
+		if (!((String) object.get("place_type")).equals("city")) {
+			return null;
+		}
+		return (String) object.get("name");
+	}
+	
 	public JSONObject getCoordinates() {
 		Object coords = _object.get( "coordinates" );
 		
