@@ -1,5 +1,6 @@
 package challenge1;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,7 @@ public class RawTweet {
 	}
 	
 	public Date getFNT() {
-		String[] parts = _filename.split("/");
+		String[] parts = _filename.split("" + File.separatorChar);
 		String hour = parts[parts.length - 1];
 		String date = parts[parts.length - 2];
 		try {
