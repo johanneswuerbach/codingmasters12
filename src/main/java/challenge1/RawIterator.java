@@ -18,13 +18,18 @@ public class RawIterator implements Iterator<RawTweet> {
 	private String _currentFile;
 	private String _filter;
 
-	public RawIterator(String directoryName) {
-		File directory = new File(directoryName);
-		_files = listSourceFiles(directory).iterator();
+	public RawIterator(String[] directoryNames) {
+		
+		ArrayList<File> files = new ArrayList<File>();
+		for (String name : directoryNames) {
+			File directory = new File(name);
+			files.addAll(listSourceFiles(directory));
+		}
+		_files = files.iterator();
 	}
 	
-	public RawIterator(String directoryName, String filter) {
-		this(directoryName);
+	public RawIterator(String[] directoryNames, String filter) {
+		this(directoryNames);
 		_filter = filter;
 	}
 
