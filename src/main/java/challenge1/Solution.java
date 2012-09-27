@@ -1,7 +1,9 @@
 package challenge1;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.simple.JSONObject;
 
@@ -51,21 +53,32 @@ public class Solution
 			{
 				String type = (String) coordinates.get("type");
 				
-				if( !stats.containsKey(type) )
-				{
+				if( !stats.containsKey(type)) {
 					stats.put(type, 0);
 				}
 				
-				Integer val = stats.get(type);
-				stats.put(type, ++val);
-			}
-			
-			if( ++i % 100000 == 0 )
-			{
-				System.out.println( stats.toString() );
+				Integer integer = stats.get(type);
+				stats.put(type, ++integer);
 			}
 		}
 		
 		System.out.println( stats.toString() );
+	}
+	
+	public void question9()
+	{
+		Parser parser = new Parser( "C:\\twitter2" );
+		TweetIterator it = parser.tweetIterator();
+		Set<Integer> ids = new HashSet<Integer>();
+		int i = 0;
+		
+		while( it.hasNext() )
+		{
+			Tweet t = it.next();
+			ids.add( (int) (( t.getId() >> 41 ) & 0x3FF) );
+		}
+		
+		System.out.println( ids.toString() );
+		System.out.println( ids.size() + "");
 	}
 }
