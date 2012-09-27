@@ -7,9 +7,9 @@ import org.json.simple.JSONValue;
 
 public class TweetIterator implements Iterator<Tweet> {
 	
-	private StringIterator _stringIterator;
+	private RawIterator _stringIterator;
 	
-	public TweetIterator(StringIterator stringIterator) {
+	public TweetIterator(RawIterator stringIterator) {
 		_stringIterator = stringIterator;
 	}
 
@@ -18,7 +18,8 @@ public class TweetIterator implements Iterator<Tweet> {
 	}
 
 	public Tweet next() {
-		JSONObject object = (JSONObject) JSONValue.parse(_stringIterator.next());
+		RawTweet next = _stringIterator.next();
+		JSONObject object = (JSONObject) JSONValue.parse(next.getData());
 		return new Tweet(object);
 	}
 

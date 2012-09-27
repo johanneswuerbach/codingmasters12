@@ -1,5 +1,7 @@
 package challenge1;
 
+import challenge1.questions.Q01;
+
 public class Main {
 
 	/**
@@ -8,13 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// TODO Auto-generated method stub
-		Parser parser = new Parser("/Users/johannes/Documents/SAP/twitter");
-		TweetIterator it = parser.tweetIterator();
-		
-		while(it.hasNext()) {
-			Tweet t = it.next();
-			System.out.println(t.getText());
-		}
+		Q01.answer();
 
 	}
 

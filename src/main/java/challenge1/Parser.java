@@ -10,10 +10,10 @@ public class Parser {
 	}
 
 	public TweetIterator tweetIterator() {
-		return new TweetIterator(stringIterator());
+		return new TweetIterator(rawIterator());
 	}
 	
-	public StringIterator stringIterator() {
-		return new StringIterator(_directory);
+	public RawIterator rawIterator() {
+		return new RawIterator(_directory);
 	}
 }
