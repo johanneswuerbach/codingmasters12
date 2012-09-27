@@ -38,5 +38,13 @@ public class Tweet {
 		
 		return (JSONObject) coords;
 	}
+	
+	public long getId() {
+		return (Long) _object.get("id");
+	}
+	
+	public String getCreatedAt() {
+		return (String) _object.get("created_at");
+	}
 
 }

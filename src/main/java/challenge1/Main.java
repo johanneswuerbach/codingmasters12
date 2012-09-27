@@ -9,7 +9,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-		new Solution().question8();
+		new Solution().question9();
 	}
 
 }
