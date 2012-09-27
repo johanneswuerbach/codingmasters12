@@ -4,7 +4,7 @@ public class Solution
 {
 	public void question6()
 	{
-		Parser parser = new Parser( "/Users/Niklas/Desktop/tweets" );
+		Parser parser = new Parser( "C:\\twitter" );
 		TweetIterator it = parser.tweetIterator();
 		int all = 0;
 		int insta = 0;
