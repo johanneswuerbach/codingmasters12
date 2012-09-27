@@ -9,10 +9,11 @@ public class Main {
 		
 		// TODO Auto-generated method stub
 		Parser parser = new Parser("/Users/johannes/Documents/SAP/twitter");
-		StringIterator it = parser.stringIterator();
+		TweetIterator it = parser.tweetIterator();
 		
 		while(it.hasNext()) {
-			System.out.println(it.next());
+			Tweet t = it.next();
+			System.out.println(t.getText());
 		}
 
 	}

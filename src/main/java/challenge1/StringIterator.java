@@ -35,37 +35,50 @@ public class StringIterator implements Iterator<String> {
 		}
 		return files;
 	}
-
-	private String nextLine() {
-
+	
+	
+	private BufferedReader nextFile() {
+		if (!_files.hasNext()) {
+			return null;
+		}
+		
 		try {
-			if (_bufferedReader != null) {
-				String line = _bufferedReader.readLine();
-				if (line != null) {
-					return line;
-				}
-			}
-			
-
-			if (!_files.hasNext()) {
-				return null;
-			}
-
 			File file = _files.next();
 			FileInputStream is = new FileInputStream(file);
 			GZIPInputStream gzis = new GZIPInputStream(is);
 			InputStreamReader reader = new InputStreamReader(gzis);
-			_bufferedReader = new BufferedReader(reader);
-			return nextLine();
-			
+			return new BufferedReader(reader);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			// Try to open the next file
+			return nextFile();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			// Try to open the next file
+			return nextFile();
 		}
-		return null;
+	}
+
+	private String nextLine() {
+
+		try {
+			String line;
+			if (_bufferedReader == null || (line = _bufferedReader.readLine()) == null) {
+				_bufferedReader = nextFile();
+				if (_bufferedReader == null) {
+					return null;
+				}
+				return _bufferedReader.readLine();
+			}
+			else {
+				return line;
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			// Try next line
+			return nextLine();
+		}
 	}
 
 	public boolean hasNext() {
@@ -75,8 +88,9 @@ public class StringIterator implements Iterator<String> {
 
 	public String next() {
 		if (_nextLine != null) {
+			String line = _nextLine;
 			_nextLine = null;
-			return _nextLine;
+			return line;
 		} else {
 			return nextLine();
 		}
