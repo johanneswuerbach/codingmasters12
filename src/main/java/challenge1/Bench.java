@@ -10,7 +10,7 @@ public class Bench {
 		
 		long start = System.currentTimeMillis();
 		
-		Parser parser = new Parser("/Users/johannes/Documents/SAP/twitter/2012-08-13");
+		Parser parser = new Parser("C:\\twitter\\2012-08-13");
 		TweetIterator it = parser.tweetIterator();
 		
 		int count = 0;
