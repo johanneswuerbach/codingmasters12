@@ -13,5 +13,13 @@ public class Tweet {
 	public String getText() {
 		return (String) _object.get("text");
 	}
+	
+	public String getSource() {
+		return (String) _object.get( "source" );
+	}
+	
+	public String getSourceText() {
+		return getSource().replaceAll( "<a.*>(.*)</a>", "$1" );
+	}
 
 }
